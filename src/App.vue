@@ -2,7 +2,8 @@
   <div id="app">
     <div class="container">
       <textarea
-        @keyup.enter="save"
+        @keydown="onPress"
+        ref="textarea"
         v-model="message"
         autofocus
         placeholder="enter something"
@@ -14,7 +15,7 @@
       <button @click="save">Save</button>
     </div>
     <div v-if="notes.length > 0" class="notes-wrapper">
-      <note :note="note" v-for="note in notes" :key="'note-'+note.id" />
+      <note :note="note" v-for="note in notes" :key="'note-' + note.id" />
     </div>
     <div v-else class="empty">
       <p>What a clean sheet!</p>
@@ -32,24 +33,30 @@ export default {
     return {
       message: "",
       notes: [],
-      notes_key: "NOTES_KET"
+      notes_key: "NOTES_KET",
     };
   },
   components: {
-    note
+    note,
   },
   methods: {
     save() {
-      if (this.message) {
+      if (this.message.trim()) {
         let msg = {
           id: Math.random(),
-          message: this.message
+          message: this.message,
         };
 
         this.notes.push(msg);
         this.message = "";
       }
-    }
+    },
+    onPress(e) {
+      if (e.keyCode == 13 && !e.shiftKey) {
+        this.save()
+        e.preventDefault();
+      }
+    },
   },
   created() {
     if (localStorage.getItem(this.notes_key)) {
@@ -57,15 +64,15 @@ export default {
     }
 
     //remove note
-    EventBus.$on("remove", id => {
-      this.notes = this.notes.filter(note => note.id != id);
+    EventBus.$on("remove", (id) => {
+      this.notes = this.notes.filter((note) => note.id != id);
     });
   },
   watch: {
     notes() {
       localStorage.setItem(this.notes_key, JSON.stringify(this.notes));
-    }
-  }
+    },
+  },
 };
 </script>
 
