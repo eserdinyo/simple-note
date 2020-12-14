@@ -12,7 +12,7 @@
         cols="30"
         rows="5"
       ></textarea>
-      <button @click="save">Save</button>
+      <button class="save-btn" @click="save">Save</button>
     </div>
     <div v-if="notes.length > 0" class="notes-wrapper">
       <note :note="note" v-for="note in notes" :key="'note-' + note.id" />
@@ -78,7 +78,7 @@ export default {
 
 <style lang="scss">
 body {
-  background-color: #202528;
+  background-color: #000000;
 }
 
 .container {
@@ -98,7 +98,7 @@ body {
 
 textarea {
   background-color: transparent;
-  border: 1px solid #646464;
+  border: 1px solid #232229;
   width: calc(100% - 60px);
   border-radius: 1px;
   padding: 20px 30px;
@@ -112,13 +112,15 @@ textarea {
 }
 
 button {
-  padding: 5px 20px;
+  padding: 8px 30px;
   background-color: transparent;
   color: #fff;
   margin-top: 20px;
-  border-radius: 1px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  border: none;
+  border: 1px solid #232229;
 
   transition: all 0.2s;
   outline: 0;

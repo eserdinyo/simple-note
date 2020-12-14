@@ -28,12 +28,12 @@ export default {
 
 <style lang="scss" scoped>
 .note {
-  color: #fff;
+  color: #E9E9E9;
   font-family: sans-serif;
   font-weight: 300;
-  border: 1px solid #646464;
+  border: 1px solid #232229;
   padding: 5px 10px;
-  border-radius: 1px;
+  border-radius: 5px;
   font-size: 13px;
   word-break: break-all;
   min-height: 100px;
